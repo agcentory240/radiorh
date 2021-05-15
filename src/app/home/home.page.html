@@ -6,8 +6,8 @@
     <p>А вот на кворке писать не надо, иначе я скидку 10% сделать уже вам не смогу :(</p>
     <br>
     <br>
-    <ion-button expand="block" color="primary" (click)="doPlay()" [disabled]="!is_loaded">Играть</ion-button>
-    <ion-button expand="block" color="secondary" (click)="doStop()" [disabled]="!is_loaded">Остановить</ion-button>
+    <ion-button expand="block" color="primary" (click)="doPlay()" [disabled]="!is_loaded && play_started">Играть</ion-button>
+    <ion-button expand="block" color="secondary" (click)="doStop()" [disabled]="!is_loaded  && !play_started">Остановить</ion-button>
 
     <div *ngIf="!is_loaded && !is_error">
       <ion-spinner name="lines-small"></ion-spinner> Загрузка источника

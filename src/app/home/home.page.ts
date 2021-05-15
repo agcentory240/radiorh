@@ -133,6 +133,8 @@ export class HomePage {
 
 
   doPlay() {
+    if (this.play_started) return;
+    this.play_started = true;
     console.log("do play");
     this.is_preparing = true;
     this.player = new Howl({
@@ -145,7 +147,6 @@ export class HomePage {
       onfade: () => this.playerOnFade(),
     });
     this.player.play(); 
-    this.play_started = true;
 
   }
 
