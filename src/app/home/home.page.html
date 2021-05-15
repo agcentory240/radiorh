@@ -1,32 +1,61 @@
 <ion-content class="ion-padding">
 
   <div id="container" class="ion-padding">
-    <strong>Работает нормально?</strong>
-    <p>Если да, то найдите меня в whatsapp +79060510120 или в скайпе agcentory240 или в телеграме @agcentory240</p>
-    <p>А вот на кворке писать не надо, иначе я скидку 10% сделать уже вам не смогу :(</p>
-    <br>
-    <br>
-    <ion-button expand="block" color="primary" (click)="doPlay()" [disabled]="!is_loaded && play_started">Играть</ion-button>
-    <ion-button expand="block" color="secondary" (click)="doStop()" [disabled]="!is_loaded  && !play_started">Остановить</ion-button>
 
-    <div *ngIf="!is_loaded && !is_error">
-      <ion-spinner name="lines-small"></ion-spinner> Загрузка источника
+    <div class="ion-padding-top ion-text-center">
+      <strong>Радио Русский Hessen</strong><br>
+      radiorh.eu
     </div>
 
-    <div *ngIf="is_preparing">
-      <ion-spinner name="lines-small"></ion-spinner> Запуск плеера
+    <div class="center_cover ion-padding-top">
+      <ion-img [src]="current_img" *ngIf="current_img!=''"></ion-img>
+    </div>
+    
+    <div class="ion-padding-top now_playing">
+      <p>Сейчас играет</p>
+      <p class="song">{{current_songtitle}}</p>
+      <p class="artist">{{current_artist}} </p>
     </div>
 
-    <div *ngIf="current_artist!='' || current_songtitle!=''">
-      Сейчас играет: {{current_songtitle}} ( {{current_artist}} )
+    
+    <div class="ion-padding-top now_playing" *ngIf="next_song!=''">
+      <p>Следующий трек</p>
+      <p class="artist">{{next_song}} </p>
+    </div>
+    
+    <div class="ion-padding-top buttons">
+      
+      <ion-button (click)="doPlay()" fill="outline" color="light"  size="large" shape="round" *ngIf="!is_preparing && !play_started">
+        <ion-icon slot="icon-only" name="play-outline"></ion-icon>
+      </ion-button>
+      
+      <ion-button (click)="doStop()" fill="outline" color="light"  size="large" shape="round"  *ngIf="!is_preparing &&  play_started">
+        <ion-icon slot="icon-only" name="pause-outline"></ion-icon>
+      </ion-button>
+    
     </div>
 
-    <div *ngIf="is_error">
-      <ion-text color="danger">
-        <ion-spinner name="lines-small"></ion-spinner> Ошибка соединения. Повторное подключение...
-      </ion-text>
-    </div>
 
   </div>
     
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="ion-text-center footer">
+
+      <div *ngIf="is_error">
+
+          <ion-spinner  color="danger" name="lines-small"></ion-spinner> <ion-text color="danger">Ошибка соединения. Повторное подключение...</ion-text>
+      </div>
+
+      <div *ngIf="!is_loaded && !is_error">
+        <ion-spinner name="lines-small"></ion-spinner> Загрузка источника
+      </div>
+  
+      <div *ngIf="is_preparing">
+        <ion-spinner name="lines-small"></ion-spinner> Запуск плеера
+      </div>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

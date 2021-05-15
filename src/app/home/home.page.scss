@@ -22,6 +22,39 @@
   margin: 0;
 }
 
+#container {
+  .center_cover {
+    width:100%;
+    text-align: center;
+    ion-img {
+      width: 100px;
+      margin: auto;
+    }
+  }
+
+  .now_playing {
+    p{
+      text-align: center;
+      font-size: 12px;
+    }
+    p.song{
+      font-size: 17px;
+      color:#fff;
+    }  
+    p.artist{
+      font-size: 14px;
+      color:rgb(173, 173, 173);
+    }    
+  }
+}
+
+
+
+
 #container a {
   text-decoration: none;
+}
+
+ion-title.footer {
+    font-size: 14px;
 }

@@ -20,9 +20,11 @@ export class HomePage {
   private is_preparing: boolean = false;
   private play_started: boolean = false;
   private data: any = {};
+  private current_img: string = "";
   private current_artist: string = "";
   private current_songtitle: string = "";
   private current_url: string = "";
+  private next_song: string = "";
 
   private previous_artist: string = "";
   private previous_songtitle: string = "";
@@ -96,10 +98,18 @@ export class HomePage {
                break;
             case 'music-controls-destroy':
                // Do something
+               console.log('music pause');
+               this.player.pause();
+               this.musicControls.listen(); 
+               this.musicControls.updateIsPlaying(false);               
                break;
             // External controls (iOS only)
             case 'music-controls-toggle-play-pause' :
               // Do something
+              console.log('music pause');
+              this.player.pause();
+              this.musicControls.listen(); 
+              this.musicControls.updateIsPlaying(false);              
               break;
             case 'music-controls-seek-to':
               // Do something
@@ -168,7 +178,7 @@ export class HomePage {
   }
 
   doStop() {
-    this.player.stop();
+    this.player.pause();
     this.play_started = false;
   }
 
@@ -185,8 +195,10 @@ export class HomePage {
       this.previous_songtitle = this.current_songtitle;
 
       this.current_url = this.data.streams[0].url;
+      this.next_song = this.data.nextsongs[0];
       this.current_artist = this.data.artist;
       this.current_songtitle = this.data.songtitle;
+      this.current_img = "https://myradio24.com/"+this.data.img;
 
       //Произошла смена песни, сменим кнопки
       if (this.previous_artist!=this.current_artist || this.previous_songtitle!=this.current_songtitle) {
