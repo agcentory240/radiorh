@@ -5,6 +5,7 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { Platform } from '@ionic/angular';
 import { BackgroundModeConfiguration } from '@ionic-native/background-mode';
 import { MusicControls } from '@ionic-native/music-controls/ngx';
+import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free/ngx';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,7 @@ export class HomePage {
   private previous_songtitle: string = "";
   private previous_url: string = "";
 
-  constructor(private http1: HttpClient, private platform: Platform, private backgroundMode: BackgroundMode, public musicControls: MusicControls ) {}
+  constructor(private admobFree : AdMobFree, private http1: HttpClient, private platform: Platform, private backgroundMode: BackgroundMode, public musicControls: MusicControls ) {}
 
 
   ngOnInit() {
@@ -40,6 +41,28 @@ export class HomePage {
       this.backgroundMode.enable();
     });
      this.reloadSources();
+     this.showAdmobBannerAds();
+  }
+
+  showAdmobBannerAds(){
+    const bannerConfig: AdMobFreeBannerConfig = {
+      isTesting: false,
+      autoShow: true,
+      id: 'ca-app-pub-8308348067080686/2279568773'
+      //id: 'ca-app-pub-3940256099942544/6300978111'
+    };
+    this.admobFree.banner.config(bannerConfig);
+
+    this.admobFree.banner.prepare()
+    .then(() => {
+      console.log("banner Ad is ready");
+        // banner Ad is ready
+        // if we set autoShow to false, then we will need to call the show method here
+    })
+    .catch(e => {
+      console.log("ads load error");
+      console.log(e);
+    });    
   }
 
   settingMusicControl(){
